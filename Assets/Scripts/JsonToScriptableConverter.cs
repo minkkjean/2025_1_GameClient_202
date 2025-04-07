@@ -43,7 +43,6 @@ public class JsonToScriptableConverter : EditorWindow
                 EditorUtility.DisplayDialog("Error", "Please select a Json file firest!", "OK");
                 return;
             }
-            ConvertJsonToScriptableObjects();
 
         }
 
