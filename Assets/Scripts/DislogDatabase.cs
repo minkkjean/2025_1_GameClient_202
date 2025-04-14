@@ -2,32 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DislogDatabase", menuName = "Dialog System/Database")]
-
 public class DialogDatabaseSO : ScriptableObject
 {
-    public List<DialogSo> dialogs = new List<DialogSo>();
+    public List<DialogSO> Dialogs = new List<DialogSO>();
 
-    private Dictionary<int, DialogSo> dialogsById;
+    private Dictionary<int, DialogSO> dialogsByld;  // 캐성을 위한 딕셔너리 사용 
 
     public void Initailize()
     {
-        dialogsById = new Dictionary<int, DialogSo>();
+        dialogsByld = new Dictionary<int, DialogSO>();
 
         foreach (var dialog in dialogs)
         {
             if (dialog != null)
             {
-                dialogsById[dialog.id] = dialog;
+                dialogsByld[dialog.id] = dialog;
             }
         }
-    }
 
-    public DialogSo GetDialogById(int id)
+    }
+    public DialogSO GetDialogByld(int id)
     {
-        if (dialogsById == null)
+        if (dialogsByld == null)
             Initailize();
-        if (dialogsById.TryGetValue(id, out DialogSo dialog))
+
+        if (dialogsByld.TryGetValue(id, out DialogSO dialog))
             return dialog;
 
         return null;

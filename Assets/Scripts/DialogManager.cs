@@ -1,8 +1,6 @@
+
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Newtonsoft.Json.Bson;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +15,7 @@ public class DialogManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject dialogPanel;
 
-    [SerializeField] private Image protraitImage;                     // 캐릭터 초상화 이미지 UI 요소 추가
+    [SerializeField] private Image portraitImage;
     [SerializeField] private TextMeshProUGUI characterNameText;
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField] private Button NextButton;
@@ -27,21 +25,17 @@ public class DialogManager : MonoBehaviour
     [SerializeField] private bool useTypewriterEffect = true;
 
     [Header("DialogChoices")]
-    [SerializeField] private GameObject choicesPanel;
-    [SerializeField] private GameObject choiceButtonPrefeb;
-
+    [SerializeField] private GameObject choicePanel;
+    [SerializeField] private GameObject choiceButtonPrefab;
 
     private bool isTyping = false;
-    private Coroutine typingCoroutine;             //코루틴 선언
-
-
-
+    private Coroutine typingCoroutine;
 
     private DialogSO currentDialog;
 
     private void Awake()
     {
-        if (instance == null)  // 싱글톤 패턴 구현
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -51,10 +45,9 @@ public class DialogManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         if (dialogDatabase != null)
         {
-            dialogDatabase.Initailize();   //초기화
+            dialogDatabase.Initailize();
         }
         else
         {
@@ -62,95 +55,86 @@ public class DialogManager : MonoBehaviour
         }
         if (NextButton != null)
         {
-            NextButton.onClick.AddListener(NextDialog);   //버튼 리스너 등록
+            NextButton.onClick.AddListener(NextDialog);
         }
         else
         {
-            Debug.LogError("Next Button is not assigned");
+            Debug.LogError("Next Button is not assigned!");
         }
-
     }
+
     void Start()
     {
-        //UI 초기화 후 대화 시작 (ID 1)
         CloseDialog();
-        StartDialog(1);   //자동으로 첫 번째 대화 시작
+        StartDialog(1);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
     }
 
-    //ID로 대화 시작
     public void StartDialog(int dialogId)
     {
-        DialogSO dialog = dialogDatabase.GetDialogByld(dialogId);
+        DialogSO dialog = dialogDatabase.GetDialogById(dialogId);
         if (dialog != null)
         {
             StartDialog(dialog);
         }
         else
         {
-            Debug.LogError($"Dialog with ID {dialogId} not found!");
+            Debug.LogError($"Dialog wit ID {dialogId} not found!");
         }
     }
 
-    //DialogSO로 대화 시작
     public void StartDialog(DialogSO dialog)
     {
         if (dialog == null) return;
+
         currentDialog = dialog;
         ShowDialog();
         dialogPanel.SetActive(true);
-
     }
 
     public void ShowDialog()
     {
         if (currentDialog == null) return;
-        characterNameText.text = currentDialog.characterName;   //캐릭터 이름 설정
+        characterNameText.text = currentDialog.characterName;
 
-        //대화 텍스트 설정 부분 수정
         if (useTypewriterEffect)
         {
-            StratTypingEffect(currentDialog.text);
+            StartTypingEffect(currentDialog.text);
         }
         else
         {
-            dialogText.text = currentDialog.text;               //대화 텍스트 설정
+            dialogText.text = currentDialog.text;
         }
 
-
-        //초상화 설정 (새로 추가된 부분)
         if (currentDialog.portrait != null)
         {
-            protraitImage.sprite = currentDialog.portrait;
-            protraitImage.gameObject.SetActive(true);
+            portraitImage.sprite = currentDialog.portrait;
+            portraitImage.gameObject.SetActive(true);
         }
         else if (!string.IsNullOrEmpty(currentDialog.portraitPath))
         {
-            //Resources 폴더에서 이미지 로드
-            Sprite portrait = Resources.Load<Sprite>(currentDialog.portraitPath);       //Assets/Resources/Characters/Narrator.png
+            Sprite portrait = Resources.Load<Sprite>(currentDialog.portraitPath);
             if (portrait != null)
             {
-                protraitImage.sprite = portrait;
-                protraitImage.gameObject.SetActive(true);
+                portraitImage.sprite = portrait;
+                portraitImage.gameObject.SetActive(true);
             }
             else
             {
                 Debug.LogWarning($"Portrait not found at path : {currentDialog.portraitPath}");
-                protraitImage.gameObject.SetActive(true);
-
+                portraitImage.gameObject.SetActive(false);
             }
+
         }
         else
         {
-            protraitImage.gameObject.SetActive(false);                          //초상화가 없으면 이미지 비활성화 
+            portraitImage.gameObject.SetActive(false);
         }
 
-        //선택지 표시
         ClearChoices();
         if (currentDialog.choices != null && currentDialog.choices.Count > 0)
         {
@@ -161,13 +145,11 @@ public class DialogManager : MonoBehaviour
         {
             NextButton.gameObject.SetActive(true);
         }
-
     }
 
-    public void NextDialog()         //다음 대화로 진행
+    public void NextDialog()
     {
-
-        if (isTyping)   //타이핑 중이면 타이핑 완료 처리
+        if (isTyping)
         {
             StopTypingEffect();
             dialogText.text = currentDialog.text;
@@ -175,11 +157,9 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-
-
-        if (currentDialog != null && currentDialog.nextld > 0)
+        if (currentDialog != null && currentDialog.nextId > 0)
         {
-            DialogSO nextDialog = dialogDatabase.GetDialogByld(currentDialog.nextld);
+            DialogSO nextDialog = dialogDatabase.GetDialogById(currentDialog.nextId);
             if (nextDialog != null)
             {
                 currentDialog = nextDialog;
@@ -189,7 +169,6 @@ public class DialogManager : MonoBehaviour
             {
                 CloseDialog();
             }
-
         }
         else
         {
@@ -197,7 +176,6 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    //텍스트 타이핑 효과 코루틴
     private IEnumerator TypeText(string text)
     {
         dialogText.text = "";
@@ -209,8 +187,6 @@ public class DialogManager : MonoBehaviour
         isTyping = false;
     }
 
-    //타이핑 효과 중지
-
     private void StopTypingEffect()
     {
         if (typingCoroutine != null)
@@ -220,9 +196,7 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    //타이핑 효과 시작
-
-    private void StratTypingEffect(string text)
+    private void StartTypingEffect(string text)
     {
         isTyping = true;
         if (typingCoroutine != null)
@@ -232,29 +206,27 @@ public class DialogManager : MonoBehaviour
         typingCoroutine = StartCoroutine(TypeText(text));
     }
 
-    public void CloseDialog()                   //대화 종료
+    public void CloseDialog()
     {
         dialogPanel.SetActive(false);
         currentDialog = null;
-        StopTypingEffect();                     //타이핑 효과 중지 추가
+        StopTypingEffect();
     }
 
-    //선택지 초기화
     private void ClearChoices()
     {
-        foreach (Transform child in choicesPanel.transform)
+        foreach (Transform child in choicePanel.transform)
         {
             Destroy(child.gameObject);
         }
-        choicesPanel.SetActive(false);
+        choicePanel.SetActive(false);
     }
 
-    //선택지 선택 처리
     public void SelectChoice(DialogChoiceSO choice)
     {
         if (choice != null && choice.nextId > 0)
         {
-            DialogSO nextDialog = dialogDatabase.GetDialogByld(choice.nextId);
+            DialogSO nextDialog = dialogDatabase.GetDialogById(choice.nextId);
             if (nextDialog != null)
             {
                 currentDialog = nextDialog;
@@ -264,7 +236,6 @@ public class DialogManager : MonoBehaviour
             {
                 CloseDialog();
             }
-
         }
         else
         {
@@ -272,27 +243,23 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    //선택지 표시
     private void ShowChoices()
     {
-        choicesPanel.SetActive(true);
-
+        choicePanel.SetActive(true);
         foreach (var choice in currentDialog.choices)
         {
-            GameObject choiceGO = Instantiate(choiceButtonPrefeb, choicesPanel.transform);
+            GameObject choiceGO = Instantiate(choiceButtonPrefab, choicePanel.transform);
             TextMeshProUGUI buttonText = choiceGO.GetComponentInChildren<TextMeshProUGUI>();
             Button button = choiceGO.GetComponent<Button>();
-
-            if (buttonText != null)
+            if (button != null)
             {
                 buttonText.text = choice.text;
             }
             if (button != null)
             {
-                DialogChoiceSO choiceSO = choice;                       //람다식에서 사용하기 위해 지역 변수에 할당
+                DialogChoiceSO choiceSO = choice;
                 button.onClick.AddListener(() => SelectChoice(choiceSO));
             }
         }
     }
 }
-
