@@ -1,5 +1,4 @@
 
-
 #if UNITY_EDITOR
 
 using System.Collections;
@@ -115,7 +114,7 @@ public class JsonToScriptableConverter : EditorWindow
                 itemSO.itemType = itemData.itemType; ;
                 itemSO.description = itemData.description;
 
-                if (System.Enum.TryParse(itemData.itemTypeString, out ItemType parsedType))
+                if (System.Enum.TryParse(itemData.itemTypeString, out itemType parsedType))
                 {
                     itemSO.itemType = parsedType;
                 }

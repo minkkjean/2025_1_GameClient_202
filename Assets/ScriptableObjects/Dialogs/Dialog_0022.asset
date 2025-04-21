@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c81ae0ca214a5ec4ca3470e10b8a3059, type: 3}
+  m_Script: {fileID: 11500000, guid: edc75192b75d86744a62296ed0c6d5b9, type: 3}
   m_Name: Dialog_0022
   m_EditorClassIdentifier: 
   id: 22
   characterName: "\uD0D0\uD5D8\uAC00"
   text: "\uC8FC\uBCC0\uC744 \uC0B4\uD3B4\uBCF4\uB2C8 \uC624\uB798\uB41C \uBB3C\uBCD1\uC774
     \uC788\uC2B5\uB2C8\uB2E4. \uC5B4\uB5BB\uAC8C \uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
-  nextild: -1
+  nextld: 23
   choices:
-  - {fileID: 11400000, guid: 404ddb58bada8a248afaaed434d05a34, type: 2}
-  - {fileID: 11400000, guid: b542b20779ca8cc4ea629c5c1fec9ed4, type: 2}
+  - {fileID: 11400000, guid: ca7d2433a3495274eb0e3d8934079240, type: 2}
+  - {fileID: 11400000, guid: f93812147e324c14ea9a27bfc213516c, type: 2}
   portrait: {fileID: 0}
   portraitPath: Characters/Explorer

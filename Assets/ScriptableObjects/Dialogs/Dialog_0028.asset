@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c81ae0ca214a5ec4ca3470e10b8a3059, type: 3}
+  m_Script: {fileID: 11500000, guid: edc75192b75d86744a62296ed0c6d5b9, type: 3}
   m_Name: Dialog_0028
   m_EditorClassIdentifier: 
   id: 28
@@ -17,7 +17,7 @@ MonoBehaviour:
   text: "\uAC70\uC758 \uAC74\uB108\uC654\uC744 \uB54C \uB9C8\uC744 \uC8FC\uBBFC\uC774
     \uB2F9\uC2E0\uC744 \uBC1C\uACAC\uD558\uACE0 \uB3C4\uC6C0\uC758 \uC190\uAE38\uC744
     \uB0B4\uBC09\uB2C8\uB2E4."
-  nextild: 29
+  nextld: 29
   choices: []
   portrait: {fileID: 0}
   portraitPath: Characters/Explorer
