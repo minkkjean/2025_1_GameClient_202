@@ -774,18 +774,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckCards:
-  - {fileID: 11400000, guid: 9c3388be780619d418919761dc1a6353, type: 2}
-  - {fileID: 11400000, guid: f073a32f69f075e4aa68e08438982b0a, type: 2}
+  - {fileID: 11400000, guid: 0d24f5d4217e0294bafe5fc20d0c1f55, type: 2}
+  - {fileID: 11400000, guid: 8274ddf8e153ac346bd6fa9fbb81e367, type: 2}
   - {fileID: 11400000, guid: 2a61960e8725d6a44ac525257633a444, type: 2}
   - {fileID: 11400000, guid: d85327194c00404438b37eee15b5ddb4, type: 2}
   - {fileID: 11400000, guid: 9c3388be780619d418919761dc1a6353, type: 2}
-  - {fileID: 11400000, guid: f073a32f69f075e4aa68e08438982b0a, type: 2}
+  - {fileID: 11400000, guid: 630a0d5ddc2619642b534de99ccb040a, type: 2}
   - {fileID: 11400000, guid: 2a61960e8725d6a44ac525257633a444, type: 2}
   - {fileID: 11400000, guid: d85327194c00404438b37eee15b5ddb4, type: 2}
-  - {fileID: 11400000, guid: 9c3388be780619d418919761dc1a6353, type: 2}
+  - {fileID: 11400000, guid: 64a7b251c10cd934bb42d780a0b91a76, type: 2}
   - {fileID: 11400000, guid: f073a32f69f075e4aa68e08438982b0a, type: 2}
   - {fileID: 11400000, guid: 2a61960e8725d6a44ac525257633a444, type: 2}
-  - {fileID: 11400000, guid: d85327194c00404438b37eee15b5ddb4, type: 2}
+  - {fileID: 11400000, guid: 630a0d5ddc2619642b534de99ccb040a, type: 2}
   handCards: []
   discardCards: []
   cardPrefab: {fileID: 6425209406648749440, guid: 0ac887c4fdbce554898a0e5e8e28aa3a,
@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 1988844623}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
